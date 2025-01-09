@@ -15,9 +15,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Card } from "@/components/ui/card";
 import axios from "@/config/axios";
 import { showToast } from "@/config/toastify";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/user.slice";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const dispath = useDispatch();
 
   const formSchema = z.object({
     email: z.string().email(),
@@ -37,6 +40,8 @@ const SignIn = () => {
       const response = await axios.post("/users/login", values);
       const data = response.data;
       showToast("success", data.message);
+
+      dispath(setUser(data.user));
       navigate("/");
     } catch (error) {
       const errorMessage = error.response?.data?.message || "An error occurred";
