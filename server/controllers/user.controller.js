@@ -7,15 +7,26 @@ export const registerUser = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     const userExists = await userModel.findOne({ email });
-
     if (userExists) {
-      next(handleError(409, "User already exists."));
+      next(errorHandler(409, "User already exists."));
     }
-    const user = userService.createUser(name, email, password);
 
-    return res.status(200).json({
-      success: true,
-      user,
+    const hashedPassword = await userModel.hashPassword(password);
+
+    const user = await userService.createUser({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    const token = user.generateJWT();
+
+    return res.status(201).json({
+      token,
+      user: userResponse,
       message: "Registration successful.",
     });
   } catch (error) {

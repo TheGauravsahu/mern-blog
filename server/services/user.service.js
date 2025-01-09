@@ -1,16 +1,16 @@
-import userModel from "../models/user.model";
+import userModel from "../models/user.model.js";
 
 export const createUser = async ({ name, email, password }) => {
-  try {
-    if (!name || !email || !password) {
-      throw Error("All fields are required.");
-    }
-    const user = await userModel.create({
-      name,
-      email,
-      password,
-    });
+  if (!name || !email || !password) {
+    throw Error("All fields are required.");
+  }
+  const user = new userModel({
+    name,
+    email,
+    password,
+  });
 
-    return user;
-  } catch (error) {}
+  await user.save();
+  
+  return user;
 };

@@ -9,7 +9,7 @@ app.listen(port, () => {
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 400;
   const message = err.message || "Internal server error.";
-  res.status(statusCode).json({
+  return res.status(statusCode).json({
     success: false,
     message,
   });

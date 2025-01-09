@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./db/db.js";
 import userRoutes from "./routes/user.routes.js";
+import morgan from "morgan";
 
 connectDB();
 
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(morgan("dev"));
 app.use(cors(process.env.FRONTEND_URL));
 
 app.get("/", (req, res) => {
