@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { errorHandler } from "../helpers/ErrorHandler.js";
 import userModel from "../models/user.model.js";
 import * as userService from "../services/user.service.js";
+import blacklistTokenModel from "../models/blacklistToken.model.js";
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -9,7 +10,7 @@ export const registerUser = async (req, res, next) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    
+
     const { name, email, password } = req.body;
 
     const userExists = await userModel.findOne({ email });
@@ -29,6 +30,8 @@ export const registerUser = async (req, res, next) => {
     delete userResponse.password;
 
     const token = user.generateJWT();
+
+    res.cookie("token", token);
 
     return res.status(201).json({
       token,
@@ -60,16 +63,38 @@ export const loginUser = async (req, res, next) => {
       next(errorHandler(400, "Invalid email or password."));
     }
 
-    const token = user.generateJWT();
-
     const userResponse = user.toObject();
     delete userResponse.password;
+
+    const token = user.generateJWT();
+
+    res.cookie("token", token);
 
     return res.status(200).json({
       token,
       user: userResponse,
       message: "Login successful.",
     });
+  } catch (error) {
+    next(errorHandler(400, error.message));
+  }
+};
+
+export const logoutUser = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized." });
+    }
+
+    await blacklistTokenModel.create({
+      token,
+    });
+
+    res.clearCookie("token");
+
+    return res.status(200).json({ message: "Logout successful." });
   } catch (error) {
     next(errorHandler(400, error.message));
   }

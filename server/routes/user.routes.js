@@ -15,6 +15,7 @@ router.post(
   ],
   userController.registerUser
 );
+
 router.post(
   "/login",
   [
@@ -25,5 +26,7 @@ router.post(
   ],
   userController.loginUser
 );
+
+router.post("/logout", userController.logoutUser);
 
 export default router;
