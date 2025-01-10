@@ -18,7 +18,7 @@ const AppSidebar = () => {
       <SidebarHeader>
         <h1 className="font-semibold">MERN Blogs</h1>
       </SidebarHeader>
-      <SidebarContent className="bg-white mt-4 py-2">
+      <SidebarContent className="bg-white mt-8 py-2">
         <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
