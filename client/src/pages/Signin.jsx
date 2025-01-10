@@ -20,7 +20,7 @@ import { setUser } from "@/store/user.slice";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const formSchema = z.object({
     email: z.string().email(),
@@ -41,7 +41,7 @@ const SignIn = () => {
       const data = response.data;
       showToast("success", data.message);
 
-      dispath(setUser(data.user));
+      dispatch(setUser(data.user));
       navigate("/");
     } catch (error) {
       const errorMessage = error.response?.data?.message || "An error occurred";
@@ -51,7 +51,7 @@ const SignIn = () => {
 
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gray-50">
-      <Card className="w-[400px] p-5 h-">
+      <Card className="w-[400px] p-5">
         <div className="my-8">
           <div className="flex items-center justify-center mb-1">
             <Link to="/" className="text-center text-xl">
