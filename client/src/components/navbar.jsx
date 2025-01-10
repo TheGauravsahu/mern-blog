@@ -19,7 +19,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.user).user;
 
   return (
-    <div className="w-full p-4  border-b border-gray-200 fixed top-0 left-0 right-0 z-20 bg-white flex items-center justify-around gap-4">
+    <div className="w-full p-4  border-b border-gray-200 fixed top-0 left-0 right-0 z-20 bg-white flex items-center justify-between gap-4 px-8">
       <div className="flex items-center gap-2">
         <button onClick={toggleSidebar} className="md:hidden">
           <AlignJustify />
@@ -42,7 +42,7 @@ const Navbar = () => {
                 <AvatarFallback>{user.user.name?.charAt(0)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="*:cursor-pointer">
+            <DropdownMenuContent className="*:cursor-pointer mr-4">
               <DropdownMenuLabel>{user.user.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
