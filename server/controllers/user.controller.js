@@ -99,3 +99,11 @@ export const logoutUser = async (req, res, next) => {
     next(errorHandler(400, error.message));
   }
 };
+
+export const getUserProfile = async (req, res, next) => {
+  try {
+    return res.status(300).json({ user: req.user });
+  } catch (error) {
+    next(errorHandler(400, error.message));
+  }
+};
