@@ -3,8 +3,10 @@ import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./db/db.js";
-import userRoutes from "./routes/user.routes.js";
 import morgan from "morgan";
+import userRoutes from "./routes/user.routes.js";
+import blogRoutes from "./routes/blog.routes.js";
+import categoryRoutes from "./routes/category.routes.js";
 
 connectDB();
 
@@ -20,5 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/blogs", blogRoutes);
 
 export default app;
