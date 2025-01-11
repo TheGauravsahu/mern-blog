@@ -120,7 +120,7 @@ export const updateUser = async (req, res, next) => {
 
     let hashedPassword;
     if (password && password?.length >= 6) {
-      hashedPassword = await userModel.hashedPassword(password);
+      hashedPassword = await userModel.hashPassword(password);
     }
 
     const updatedUser = await userModel.findByIdAndUpdate(
