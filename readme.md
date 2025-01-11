@@ -14,50 +14,50 @@ This is a blog project built using the MERN stack (MongoDB, Express, React, Node
 
 1. Navigate to the `server` directory:
 
-    ```bash
-    cd server
-    ```
+   ```bash
+   cd server
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Create a `.env` file in the `server` directory and add your environment variables:
 
-    ```env
-    PORT=3000
-    MONGODB_URI=your_mongodb_uri
-    JWT_SECRET=your_jwt_secret
-    FRONTEND_URL=http://localhost:5173
-    ```
+   ```env
+   PORT=3000
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
+   FRONTEND_URL=http://localhost:5173
+   ```
 
 4. Start the server:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 ### Client
 
 1. Navigate to the `client` directory:
 
-    ```bash
-    cd client
-    ```
+   ```bash
+   cd client
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Start the client:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
 ## Project Structure
 
@@ -67,6 +67,8 @@ This is a blog project built using the MERN stack (MongoDB, Express, React, Node
 - `server.js`: Server setup and error handling.
 - `db/db.js`: Database connection setup.
 - `routes/user.routes.js`: User-related routes.
+- `routes/category.routes.js`: Category-related routes.
+- `routes/blog.routes.js`: Blog-related routes.
 
 ### Client
 

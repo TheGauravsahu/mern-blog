@@ -101,6 +101,149 @@ http://localhost:4000/api
 }
 ```
 
+### 5. Update User
+
+**Endpoint:** `/users/:id`  
+**Method:** `PATCH`  
+**Description:** Update the details of an existing user.
+
+**Request Body:**
+```json
+{
+    "name": "John Doe",
+    "avatar": "avatar_url_here",
+    "bio": "User bio here",
+    "password": "newpassword123"
+}
+```
+
+**Response:**
+```json
+{
+    "message": "Updated user.",
+    "user": {
+        "_id": "user_id_here",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "avatar": "avatar_url_here",
+        "bio": "User bio here",
+        "role": "user"
+    }
+}
+```
+
+### 6. Create Category
+
+**Endpoint:** `/categories/create`  
+**Method:** `POST`  
+**Description:** Create a new category.
+
+**Request Body:**
+```json
+{
+    "name": "Technology"
+}
+```
+
+**Response:**
+```json
+{
+    "message": "Category created successfully.",
+    "category": {
+        "_id": "category_id_here",
+        "name": "Technology"
+    }
+}
+```
+
+### 7. Get All Categories
+
+**Endpoint:** `/categories/all`  
+**Method:** `GET`  
+**Description:** Get all categories.
+
+**Response:**
+```json
+{
+    "message": "Fetched categories successfully",
+    "categories": [
+        {
+            "_id": "category_id_here",
+            "name": "Technology"
+        }
+    ]
+}
+```
+
+### 8. Update Category
+
+**Endpoint:** `/categories/update/:id`  
+**Method:** `PATCH`  
+**Description:** Update an existing category.
+
+**Request Body:**
+```json
+{
+    "name": "Tech"
+}
+```
+
+**Response:**
+```json
+{
+    "message": "Updated category successfully.",
+    "category": {
+        "_id": "category_id_here",
+        "name": "Tech"
+    }
+}
+```
+
+### 9. Delete Category
+
+**Endpoint:** `/categories/delete/:id`  
+**Method:** `DELETE`  
+**Description:** Delete an existing category.
+
+**Response:**
+```json
+{
+    "message": "Deleted category successfully."
+}
+```
+
+### 10. Create Blog
+
+**Endpoint:** `/blogs/create`  
+**Method:** `POST`  
+**Description:** Create a new blog post.
+
+**Request Body:**
+```json
+{
+    "title": "Blog Title",
+    "content": "Blog content here...",
+    "image": "image_url_here",
+    "category": "category_id_here",
+    "author": "author_id_here"
+}
+```
+
+**Response:**
+```json
+{
+    "message": "Blog created successfully.",
+    "blog": {
+        "_id": "blog_id_here",
+        "title": "Blog Title",
+        "content": "Blog content here...",
+        "image": "image_url_here",
+        "category": "category_id_here",
+        "author": "author_id_here"
+    }
+}
+```
+
 ## Error Responses
 
 ### Validation Errors
@@ -142,35 +285,5 @@ http://localhost:4000/api
 ```json
 {
     "message": "Unauthorized."
-}
-```
-### 5. Update User
-
-**Endpoint:** `/users/:id`  
-**Method:** `PATCH`  
-**Description:** Update the details of an existing user.
-
-**Request Body:**
-```json
-{
-    "name": "John Doe",
-    "avatar": "avatar_url_here",
-    "bio": "User bio here",
-    "password": "newpassword123"
-}
-```
-
-**Response:**
-```json
-{
-    "message": "Updated user.",
-    "user": {
-        "_id": "user_id_here",
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "avatar": "avatar_url_here",
-        "bio": "User bio here",
-        "role": "user"
-    }
 }
 ```
