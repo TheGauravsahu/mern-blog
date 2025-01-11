@@ -107,3 +107,41 @@ export const getUserProfile = async (req, res, next) => {
     next(errorHandler(400, error.message));
   }
 };
+
+export const updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, avatar, bio, password } = req.body;
+
+    const user = await userModel.findById(id);
+    if (!user) {
+      return next(errorHandler(404, "User not found."));
+    }
+
+    let hashedPassword;
+    if (password && password?.length >= 6) {
+      hashedPassword = await userModel.hashedPassword(password);
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        password: hashedPassword,
+        avatar,
+        bio,
+      },
+      { new: true }
+    );
+
+    const userResponse = updatedUser.toObject();
+    delete userResponse.password;
+
+    return res.status(200).json({
+      message: "Updated user.",
+      user: userResponse,
+    });
+  } catch (error) {
+    next(errorHandler(400, error.message));
+  }
+};

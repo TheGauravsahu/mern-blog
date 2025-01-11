@@ -1,7 +1,7 @@
-import { errorHandler } from "../helpers/ErrorHandler";
-import blacklistTokenModel from "../models/blacklistToken.model";
+import { errorHandler } from "../helpers/errorHandler.js";
+import blacklistTokenModel from "../models/blacklistToken.model.js";
 import jwt from "jsonwebtoken";
-import userModel from "../models/user.model";
+import userModel from "../models/user.model.js";
 
 export const authUser = async (req, res, next) => {
   try {
