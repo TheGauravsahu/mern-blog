@@ -12,11 +12,30 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "@/config/toastify";
+import axios from "@/config/axios";
+import { removeUser } from "@/store/user.slice";
 
 const Navbar = () => {
   const { toggleSidebar } = useSidebar();
   const user = useSelector((state) => state.user).user;
+
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("/users/logout");
+      const data = response.data;
+
+      dispatch(removeUser());
+      localStorage.removeItem("token");
+      showToast("sucess", data.message);
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Failed to logout";
+      showToast("error", errorMessage);
+    }
+  };
 
   return (
     <div className="w-full p-4  border-b border-gray-200 fixed top-0 left-0 right-0 z-20 bg-white flex items-center justify-between gap-4 px-8">
@@ -53,7 +72,7 @@ const Navbar = () => {
                 <Plus />
                 <Link to="/create">Create Blog</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleLogout()}>
                 <LogOut />
                 Logout
               </DropdownMenuItem>

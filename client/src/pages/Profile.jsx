@@ -1,3 +1,4 @@
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -10,13 +11,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { showToast } from "@/config/toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import { AvatarFallback } from "@radix-ui/react-avatar";
+import axios from "../config/axios";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
   const [filePreview, setFilePreview] = useState();
   const [file, setFile] = useState();
 
@@ -38,9 +43,43 @@ const Profile = () => {
 
   const handleSubmit = async (values) => {};
 
+  const getUserProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/users/profile");
+      const user = response.data.user;
+      setUserData(user);
+      form.reset({
+        name: user.name,
+        email: user.email,
+        bio: user.bio,
+      });
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch user profile.";
+      showToast("error", errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
   return (
-    <Card className="max-w-screen-md mx-auto">
+    <Card className="max-w-screen-md mx-auto mt-8 pb-4">
       <CardContent>
+        <div className="w-full flex items-center justify-center my-8 h-full">
+          <Avatar className="w-28 h-28 relative group">
+            <AvatarImage src={userData?.avatar} />
+            <AvatarFallback
+              src={userData?.name ? userData.name.charAt(0) : "?"}
+            />
+          </Avatar>
+        </div>
+
         <div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -119,7 +158,7 @@ const Profile = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full my-4">
                 Save Changes
               </Button>
             </form>

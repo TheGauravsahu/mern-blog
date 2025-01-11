@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { errorHandler } from "../helpers/ErrorHandler.js";
+import { errorHandler } from "../helpers/errorHandler.js";
 import userModel from "../models/user.model.js";
 import * as userService from "../services/user.service.js";
 import blacklistTokenModel from "../models/blacklistToken.model.js";
@@ -102,7 +102,7 @@ export const logoutUser = async (req, res, next) => {
 
 export const getUserProfile = async (req, res, next) => {
   try {
-    return res.status(300).json({ user: req.user });
+    return res.status(200).json({ user: req.user });
   } catch (error) {
     next(errorHandler(400, error.message));
   }

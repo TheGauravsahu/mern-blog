@@ -9,7 +9,7 @@ const Layout = () => {
     <SidebarProvider>
       <Navbar />
       <AppSidebar />
-      <main className="w-full h-full mt-24">
+      <main className="w-full h-full mt-24 px-8">
         <Outlet />
         <Footer />
       </main>

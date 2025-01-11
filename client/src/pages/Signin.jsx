@@ -41,6 +41,7 @@ const SignIn = () => {
       const data = response.data;
       showToast("success", data.message);
 
+      localStorage.setItem("token", data.token);
       dispatch(setUser(data.user));
       navigate("/");
     } catch (error) {

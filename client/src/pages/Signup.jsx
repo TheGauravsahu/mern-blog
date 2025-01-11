@@ -26,9 +26,11 @@ const SignUp = () => {
     name: z.string().min(3, "Name must be atleast 3 characters long."),
     email: z.string().email("Invalid email address."),
     password: z.string().min(6, "Password must be atleast 6 characters long."),
-    confirmPassword: z.string().refine((data) => data.password === formSchema.password, {
-      message: "Passwords do not match.",
-    }),
+    confirmPassword: z
+      .string()
+      .refine((data) => data.password === formSchema.password, {
+        message: "Passwords do not match.",
+      }),
   });
 
   const form = useForm({
@@ -47,6 +49,7 @@ const SignUp = () => {
       const data = response.data;
       showToast("success", data.message);
 
+      localStorage.setItem("token", data.token);
       dispatch(setUser(data.user));
       navigate("/");
     } catch (error) {
