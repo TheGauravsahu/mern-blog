@@ -7,7 +7,9 @@ http://localhost:4000/api
 
 ## Endpoints
 
-### 1. User Registration
+### User Routes
+
+#### 1. User Registration
 
 **Endpoint:** `/users/signup`  
 **Method:** `POST`  
@@ -38,7 +40,7 @@ http://localhost:4000/api
 }
 ```
 
-### 2. User Login
+#### 2. User Login
 
 **Endpoint:** `/users/login`  
 **Method:** `POST`  
@@ -68,7 +70,7 @@ http://localhost:4000/api
 }
 ```
 
-### 3. User Logout
+#### 3. User Logout
 
 **Endpoint:** `/users/logout`  
 **Method:** `POST`  
@@ -81,7 +83,7 @@ http://localhost:4000/api
 }
 ```
 
-### 4. Get User Profile
+#### 4. Get User Profile
 
 **Endpoint:** `/users/profile`  
 **Method:** `POST`  
@@ -101,7 +103,7 @@ http://localhost:4000/api
 }
 ```
 
-### 5. Update User
+#### 5. Update User
 
 **Endpoint:** `/users/:id`  
 **Method:** `PATCH`  
@@ -132,7 +134,9 @@ http://localhost:4000/api
 }
 ```
 
-### 6. Create Category
+### Category Routes
+
+#### 1. Create Category
 
 **Endpoint:** `/categories/create`  
 **Method:** `POST`  
@@ -156,7 +160,7 @@ http://localhost:4000/api
 }
 ```
 
-### 7. Get All Categories
+#### 2. Get All Categories
 
 **Endpoint:** `/categories/all`  
 **Method:** `GET`  
@@ -175,7 +179,7 @@ http://localhost:4000/api
 }
 ```
 
-### 8. Update Category
+#### 3. Update Category
 
 **Endpoint:** `/categories/update/:id`  
 **Method:** `PATCH`  
@@ -199,7 +203,7 @@ http://localhost:4000/api
 }
 ```
 
-### 9. Delete Category
+#### 4. Delete Category
 
 **Endpoint:** `/categories/delete/:id`  
 **Method:** `DELETE`  
@@ -212,7 +216,9 @@ http://localhost:4000/api
 }
 ```
 
-### 10. Create Blog
+### Blog Routes
+
+#### 1. Create Blog
 
 **Endpoint:** `/blogs/create`  
 **Method:** `POST`  
