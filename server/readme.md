@@ -144,3 +144,33 @@ http://localhost:4000/api
     "message": "Unauthorized."
 }
 ```
+### 5. Update User
+
+**Endpoint:** `/users/:id`  
+**Method:** `PATCH`  
+**Description:** Update the details of an existing user.
+
+**Request Body:**
+```json
+{
+    "name": "John Doe",
+    "avatar": "avatar_url_here",
+    "bio": "User bio here",
+    "password": "newpassword123"
+}
+```
+
+**Response:**
+```json
+{
+    "message": "Updated user.",
+    "user": {
+        "_id": "user_id_here",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "avatar": "avatar_url_here",
+        "bio": "User bio here",
+        "role": "user"
+    }
+}
+```
