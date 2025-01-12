@@ -2,6 +2,7 @@ import { errorHandler } from "../helpers/errorHandler.js";
 import blogModel from "../models/blog.model.js";
 import * as blogService from "../services/blog.service.js";
 import { validationResult } from "express-validator";
+import { uploadFile } from "../config/pinata.config.js";
 
 export const createBlog = async (req, res, next) => {
   const errors = validationResult(req);
@@ -10,12 +11,25 @@ export const createBlog = async (req, res, next) => {
   }
 
   try {
-    const { title, content, image, category, author } = req.body;
+    const { title, content, category, author } = req.body;
+    const image = req.file;
+
+    if (!image) {
+      return res.status(400).json({ message: "Image is required." });
+    }
+
+    // Upload file to Pinata
+    const pinataResponse = await uploadFile(
+      image.buffer,
+      image.originalname,
+      image.mimetype
+    );
+    const imageUrl = `${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
 
     const blog = await blogService.create({
       title,
       content,
-      image,
+      image: imageUrl,
       category,
       author,
     });
