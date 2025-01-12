@@ -16,4 +16,14 @@ router.post(
   blogController.createBlog
 );
 
+router.get("/", blogController.listAllBlogs);
+
+router.get("/me", authMiddleware.authUser, blogController.listUserBlogs);
+
+router.get("/:slug", authMiddleware.authUser, blogController.getBlogDetails);
+
+router.patch("/:slug", authMiddleware.authUser, blogController.updateBlog);
+
+router.delete("/:slug", authMiddleware.authUser, blogController.deleteBlog);
+
 export default router;
