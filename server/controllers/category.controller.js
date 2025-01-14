@@ -44,6 +44,23 @@ export const getAllCategories = async (req, res, next) => {
   }
 };
 
+export const getCategoryDetails = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const category = await categoryModel.findById(id);
+    if (!category) {
+      return res.status(404).json({ message: "Category not found." });
+    }
+
+    return res.status(200).json({
+      message: "Category fetched successfully.",
+      category,
+    });
+  } catch (error) {
+    return next(errorHandler(500, error.message));
+  }
+};
+
 export const updateCategory = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

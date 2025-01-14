@@ -8,6 +8,7 @@ import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Create from "./pages/Category/Create";
 import List from "./pages/Category/List";
+import Update from "./pages/Category/Update";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route>
             <Route path="/categories" element={<List />} />
             <Route path="/category/add" element={<Create />} />
+            <Route path="/category/update/:id" element={<Update />} />
           </Route>
         </Route>
 

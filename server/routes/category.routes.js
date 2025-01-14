@@ -11,9 +11,15 @@ router.post(
   authMiddleware.authUser,
   categoryController.createCategory
 );
-router.get("/", authMiddleware.authUser, categoryController.getAllCategories);
 
-router.patch(
+router.get("/", authMiddleware.authUser, categoryController.getAllCategories);
+router.get(
+  "/:id",
+  authMiddleware.authUser,
+  categoryController.getCategoryDetails
+);
+
+router.put(
   "/update/:id",
   [body("name").trim().notEmpty().withMessage("Name is required.")],
   authMiddleware.authUser,

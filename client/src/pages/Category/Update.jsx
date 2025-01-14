@@ -10,13 +10,16 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "@/config/axios";
 import { showToast } from "@/config/toastify";
+import { useParams } from "react-router-dom";
 
-const Create = () => {
+const Update = () => {
+  const { id } = useParams();
+
   const formSchema = z.object({
     name: z.string().min(3, "Name must be atleast 3 characters long."),
   });
@@ -30,16 +33,29 @@ const Create = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const data = (await axios.post("/categories/create", values)).data;
+      const data = (await axios.put(`/categories/update/${id}`, values)).data;
       showToast("success", data.message);
-      form.reset();
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || "Failed to add category.";
+        error.response?.data?.message || "Failed to update category.";
       showToast("error", errorMessage);
     }
   };
 
+  useEffect(() => {
+    const getCategoryDetails = async () => {
+      try {
+        const data = (await axios.get(`/categories/${id}`)).data;
+        form.reset({ name: data.category.name });
+      } catch (error) {
+        const errorMessage =
+          error.response?.data?.message || "Failed to get category.";
+        showToast("error", errorMessage);
+      }
+    };
+
+    getCategoryDetails();
+  }, []);
 
   return (
     <Card className="max-w-screen-md mx-auto">
@@ -74,4 +90,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Update;
