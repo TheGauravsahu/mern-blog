@@ -3,6 +3,7 @@ import { errorHandler } from "../helpers/errorHandler.js";
 import userModel from "../models/user.model.js";
 import * as userService from "../services/user.service.js";
 import blacklistTokenModel from "../models/blacklistToken.model.js";
+import { uploadFile } from "../config/pinata.config.js";
 
 export const registerUser = async (req, res, next) => {
   try {

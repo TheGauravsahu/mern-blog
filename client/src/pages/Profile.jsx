@@ -20,6 +20,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/user.slice";
+import { Camera } from "lucide-react";
+import Dropzone from "react-dropzone";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -48,8 +50,8 @@ const Profile = () => {
   const handleSubmit = async (values) => {
     try {
       const formData = new FormData();
-      formData.append("file", file);
-      Object.keys(values).forEach(key => {
+      formData.append("avatar", file);
+      Object.keys(values).forEach((key) => {
         formData.append(key, values[key]);
       });
 
@@ -61,7 +63,7 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       const errorMessage =
-        error.response?.data?.message || "Failed to fetch user profile.";
+      error.response?.data?.message || "Failed to update user profile.";
       showToast("error", errorMessage);
     }
   };
@@ -91,21 +93,43 @@ const Profile = () => {
     getUserProfile();
   }, []);
 
+  const handleFileSelection = (files) => {
+    const file = files[0];
+    const preview = URL.createObjectURL(file);
+    setFile(file);
+    setFilePreview(preview);
+  };
+
   return (
     <Card className="max-w-screen-md mx-auto mt-8 pb-4">
       <CardContent>
         <div className="w-full flex items-center justify-center my-8 h-full">
-          <Avatar className="w-28 h-28 relative group">
-            <AvatarImage src={userData?.avatar} />
-            <AvatarFallback
-              src={userData?.name ? userData.name.charAt(0) : "?"}
-            />
-          </Avatar>
+          <Dropzone
+            onDrop={(acceptedFiles) => handleFileSelection(acceptedFiles)}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <Avatar className="w-28 h-28 relative group">
+                  <AvatarImage
+                  className="object-cover"
+                    src={filePreview ? filePreview : userData?.avatar}
+                  />
+                  <AvatarFallback>
+                  {userData?.name?.charAt(0)}
+                  </AvatarFallback>
+                  <div className="absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center bg-black bg-opacity-20 border-2 border-green-500 rounded-full group-hover:flex hidden cursor-pointer">
+                    <Camera color="#1fe066" />
+                  </div>
+                </Avatar>
+              </div>
+            )}
+          </Dropzone>
         </div>
 
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} >
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
               <div className="mb-3">
                 <FormField
                   control={form.control}
