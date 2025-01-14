@@ -46,7 +46,7 @@ export const getBlogDetails = async (req, res, next) => {
   try {
     const { slug } = req.params;
 
-    const blog = await blogModel.findOne({ slug });
+    const blog = await blogModel.findOne({ slug }).populate("author", "name");
 
     if (!blog) {
       return next(errorHandler(404, "Blog not found."));
@@ -64,7 +64,9 @@ export const listUserBlogs = async (req, res, next) => {
   try {
     const { _id } = req.user;
 
-    const blogs = await blogModel.find({ author: _id });
+    const blogs = await blogModel
+      .find({ author: _id })
+      .populate("author", "name");
 
     return res
       .status(200)
@@ -76,7 +78,7 @@ export const listUserBlogs = async (req, res, next) => {
 
 export const listAllBlogs = async (req, res, next) => {
   try {
-    const blogs = await blogModel.find();
+    const blogs = await blogModel.find().populate("author", "name avatar");
 
     return res
       .status(200)
