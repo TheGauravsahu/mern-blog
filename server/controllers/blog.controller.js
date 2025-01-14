@@ -24,7 +24,7 @@ export const createBlog = async (req, res, next) => {
       image.originalname,
       image.mimetype
     );
-    const imageUrl = `${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
+    const imageUrl = `https://${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
 
     const blog = await blogService.create({
       title,

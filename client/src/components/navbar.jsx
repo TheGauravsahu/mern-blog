@@ -57,7 +57,9 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user.user.avatar} />
+                <AvatarImage 
+                className="object-cover"
+                src={user.user.avatar} />
                 <AvatarFallback>{user.user.name?.charAt(0)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>

@@ -123,7 +123,7 @@ export const updateUser = async (req, res, next) => {
         avatar.originalname,
         avatar.mimetype
       );
-      avatarUrl = `${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
+      avatarUrl = `https://${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
     }
 
     const user = await userModel.findById(id);

@@ -63,7 +63,7 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       const errorMessage =
-      error.response?.data?.message || "Failed to update user profile.";
+        error.response?.data?.message || "Failed to update user profile.";
       showToast("error", errorMessage);
     }
   };
@@ -100,6 +100,8 @@ const Profile = () => {
     setFilePreview(preview);
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <Card className="max-w-screen-md mx-auto mt-8 pb-4">
       <CardContent>
@@ -112,12 +114,10 @@ const Profile = () => {
                 <input {...getInputProps()} />
                 <Avatar className="w-28 h-28 relative group">
                   <AvatarImage
-                  className="object-cover"
+                    className="object-cover"
                     src={filePreview ? filePreview : userData?.avatar}
                   />
-                  <AvatarFallback>
-                  {userData?.name?.charAt(0)}
-                  </AvatarFallback>
+                  <AvatarFallback>{userData?.name?.charAt(0)}</AvatarFallback>
                   <div className="absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center bg-black bg-opacity-20 border-2 border-green-500 rounded-full group-hover:flex hidden cursor-pointer">
                     <Camera color="#1fe066" />
                   </div>
