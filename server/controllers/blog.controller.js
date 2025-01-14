@@ -46,7 +46,9 @@ export const getBlogDetails = async (req, res, next) => {
   try {
     const { slug } = req.params;
 
-    const blog = await blogModel.findOne({ slug }).populate("author", "name");
+    const blog = await blogModel
+      .findOne({ slug })
+      .populate("author", "name avatar");
 
     if (!blog) {
       return next(errorHandler(404, "Blog not found."));

@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Create from "./pages/Category/Create";
 import List from "./pages/Category/List";
 import Update from "./pages/Category/Update";
+import Details from "./pages/Blog/Details";
 
 const App = () => {
   return (
@@ -17,6 +18,10 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Index />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route>
+            <Route path="/blog/:slug" element={<Details />} />
+          </Route>
 
           <Route>
             <Route path="/categories" element={<List />} />

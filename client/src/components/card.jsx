@@ -1,4 +1,5 @@
 import { CalendarDays } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Card = ({ blog }) => {
   const formattedDate = new Date(blog.createdAt).toLocaleDateString("en-US", {
@@ -11,6 +12,7 @@ const Card = ({ blog }) => {
     <div
       id={blog._id}
       className="bg-white rounded-lg shadow-md overflow-hidden w-80 border p-4 cursor-pointer hover:shadow-lg hover:scale-95 transition-all ease-in-out"
+      style={{ transition: "transform 0.2s ease-in-out" }}
     >
       <div className="flex items-center">
         <img
@@ -21,6 +23,7 @@ const Card = ({ blog }) => {
           }
           alt={blog.author.name}
           className="w-10 h-10 rounded-full mr-4 object-cover"
+          style={{ transition: "transform 0.2s ease-in-out" }}
         />
 
         <div>
@@ -29,11 +32,14 @@ const Card = ({ blog }) => {
       </div>
 
       {blog.image && (
-        <img
-          src={blog.image}
-          alt={blog.title}
-          className="w-full h-48 object-cover rounded-lg my-4"
-        />
+        <Link to={"/blog/" + blog.slug}>
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className="w-full h-48 object-cover rounded-lg my-4"
+            style={{ transition: "transform 0.2s ease-in-out" }}
+          />
+        </Link>
       )}
       <div>
         <p className="text-gray-500 text-sm flex items-center mb-2 gap-1">
