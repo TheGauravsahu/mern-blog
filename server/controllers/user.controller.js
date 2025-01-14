@@ -111,35 +111,38 @@ export const getUserProfile = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name, avatar, bio, password } = req.body;
+    const { name, bio } = req.body;
+    const avatar = req.file;
+    let avatarUrl;
+
+    // Upload file to Pinata
+    if (avatar) {
+      const pinataResponse = await uploadFile(
+        avatar.buffer,
+        avatar.originalname,
+        avatar.mimetype
+      );
+      avatarUrl = `${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
+    }
 
     const user = await userModel.findById(id);
     if (!user) {
       return next(errorHandler(404, "User not found."));
     }
 
-    let hashedPassword;
-    if (password && password?.length >= 6) {
-      hashedPassword = await userModel.hashPassword(password);
-    }
-
     const updatedUser = await userModel.findByIdAndUpdate(
       id,
       {
         name,
-        password: hashedPassword,
-        avatar,
+        avatar: avatarUrl,
         bio,
       },
       { new: true }
     );
 
-    const userResponse = updatedUser.toObject();
-    delete userResponse.password;
-
     return res.status(200).json({
       message: "Updated user.",
-      user: userResponse,
+      user: updatedUser,
     });
   } catch (error) {
     next(errorHandler(400, error.message));

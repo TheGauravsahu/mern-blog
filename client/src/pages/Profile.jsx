@@ -18,12 +18,16 @@ import axios from "../config/axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/user.slice";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const [filePreview, setFilePreview] = useState();
   const [file, setFile] = useState();
+
+  const dispatch = useDispatch();
 
   const formSchema = z.object({
     name: z.string().min(3, "Name must be atleast 3 characters long."),
@@ -41,7 +45,26 @@ const Profile = () => {
     },
   });
 
-  const handleSubmit = async (values) => {};
+  const handleSubmit = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      Object.keys(values).forEach(key => {
+        formData.append(key, values[key]);
+      });
+
+      const response = await axios.patch(`/users/${userData._id}`, formData);
+      const data = await response.data;
+
+      dispatch(setUser(data.user));
+      showToast("success", data.message);
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response?.data?.message || "Failed to fetch user profile.";
+      showToast("error", errorMessage);
+    }
+  };
 
   const getUserProfile = async () => {
     try {
@@ -82,7 +105,7 @@ const Profile = () => {
 
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} >
               <div className="mb-3">
                 <FormField
                   control={form.control}
@@ -129,26 +152,6 @@ const Profile = () => {
                         <Textarea
                           type="password"
                           placeholder="Enter bio"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="mb-3">
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="Enter your password"
                           {...field}
                         />
                       </FormControl>

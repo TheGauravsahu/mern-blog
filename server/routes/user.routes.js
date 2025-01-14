@@ -2,6 +2,7 @@ import { Router } from "express";
 import * as userController from "../controllers/user.controller.js";
 import * as authMiddleware from "../middlewares/auth.middleware.js";
 import { body } from "express-validator";
+import upload from "../config/multer.config.js";
 
 const router = Router();
 
@@ -32,6 +33,11 @@ router.get("/profile", authMiddleware.authUser, userController.getUserProfile);
 
 router.post("/logout", authMiddleware.authUser, userController.logoutUser);
 
-router.patch("/:id", authMiddleware.authUser, userController.updateUser);
+router.patch(
+  "/:id",
+  upload.single("avatar"),
+  authMiddleware.authUser,
+  userController.updateUser
+);
 
 export default router;
