@@ -31,7 +31,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton>
                <LayoutGrid />
-                <Link to="/">Categories</Link>
+                <Link to="/categories">Categories</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 

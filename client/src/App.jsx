@@ -6,6 +6,8 @@ import Index from "./pages/Index";
 import SignIn from "./pages/Signin";
 import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
+import Create from "./pages/Category/Create";
+import List from "./pages/Category/List";
 
 const App = () => {
   return (
@@ -14,6 +16,11 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Index />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route>
+            <Route path="/categories" element={<List />} />
+            <Route path="/category/add" element={<Create />} />
+          </Route>
         </Route>
 
         <Route path="/signin" element={<SignIn />} />

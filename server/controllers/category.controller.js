@@ -10,14 +10,19 @@ export const createCategory = async (req, res, next) => {
 
   try {
     const { name } = req.body;
+    const slug = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
-    const alreadyExists = await categoryModel.findOne({ name });
+    const alreadyExists = await categoryModel.findOne({ slug });
     if (alreadyExists) {
       return next(errorHandler(400, "Category already exists."));
     }
 
     const category = await categoryModel.create({
       name,
+      slug,
     });
 
     return res
@@ -48,6 +53,10 @@ export const updateCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
     const { id } = req.params;
+    const slug = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
     const category = await categoryModel.findById(id);
     if (!category) {
@@ -63,6 +72,7 @@ export const updateCategory = async (req, res, next) => {
       id,
       {
         name,
+        slug,
       },
       { new: true }
     );

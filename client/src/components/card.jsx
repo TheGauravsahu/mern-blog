@@ -1,7 +1,6 @@
 import { CalendarDays } from "lucide-react";
 
 const Card = ({ blog }) => {
-  
   const formattedDate = new Date(blog.createdAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -9,15 +8,21 @@ const Card = ({ blog }) => {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden w-80 border p-4 cursor-pointer hover:shadow-lg hover:scale-95 transition-all ease-in-out">
+    <div
+      id={blog._id}
+      className="bg-white rounded-lg shadow-md overflow-hidden w-80 border p-4 cursor-pointer hover:shadow-lg hover:scale-95 transition-all ease-in-out"
+    >
       <div className="flex items-center">
-        {blog.author_img && (
-          <img
-            src={blog.author.avatar}
-            alt={blog.author.name}
-            className="w-10 h-10 rounded-full mr-4"
-          />
-        )}
+        <img
+          src={
+            blog.author?.avatar
+              ? blog.author?.avatar
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6xSz0eMW7GmpKukczOHvPWWGDqaBCqWA-Mw&s"
+          }
+          alt={blog.author.name}
+          className="w-10 h-10 rounded-full mr-4 object-cover"
+        />
+
         <div>
           <p className="font-semibold">{blog.author.name}</p>
         </div>

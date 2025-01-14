@@ -107,7 +107,7 @@ const Profile = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <Card className="max-w-screen-md mx-auto mt-8 pb-4">
+    <Card className="max-w-screen-lg mx-auto mt-8 pb-4">
       <CardContent>
         <div className="w-full flex items-center justify-center my-8 h-full">
           <Dropzone

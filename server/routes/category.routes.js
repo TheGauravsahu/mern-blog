@@ -11,11 +11,7 @@ router.post(
   authMiddleware.authUser,
   categoryController.createCategory
 );
-router.get(
-  "/all",
-  authMiddleware.authUser,
-  categoryController.getAllCategories
-);
+router.get("/", authMiddleware.authUser, categoryController.getAllCategories);
 
 router.patch(
   "/update/:id",
