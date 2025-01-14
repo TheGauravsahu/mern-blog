@@ -25,6 +25,7 @@ import Dropzone from "react-dropzone";
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [userData, setUserData] = useState(null);
   const [filePreview, setFilePreview] = useState();
   const [file, setFile] = useState();
@@ -49,6 +50,7 @@ const Profile = () => {
 
   const handleSubmit = async (values) => {
     try {
+      setIsUpdating(true);
       const formData = new FormData();
       formData.append("avatar", file);
       Object.keys(values).forEach((key) => {
@@ -60,7 +62,9 @@ const Profile = () => {
 
       dispatch(setUser(data.user));
       showToast("success", data.message);
+      setIsUpdating(false);
     } catch (error) {
+      setIsUpdating(false);
       console.log(error);
       const errorMessage =
         error.response?.data?.message || "Failed to update user profile.";
@@ -155,6 +159,7 @@ const Profile = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
+                          readOnly
                           placeholder="Enter your email address"
                           {...field}
                         />
@@ -185,7 +190,7 @@ const Profile = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full my-4">
+              <Button disabled={isUpdating} type="submit" className="w-full my-4">
                 Save Changes
               </Button>
             </form>
