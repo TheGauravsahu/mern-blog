@@ -9,10 +9,34 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Circle, House, LayoutGrid, MessageCircle, ScrollText } from "lucide-react";
+import { House, LayoutGrid, MessageCircle, ScrollText } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "@/config/axios";
 
 const AppSidebar = () => {
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+
+        const response = await axios.get("/categories");
+        const data = response.data;
+
+        setCategories(data.categories);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log("error", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -30,7 +54,7 @@ const AppSidebar = () => {
 
             <SidebarMenuItem>
               <SidebarMenuButton>
-               <LayoutGrid />
+                <LayoutGrid />
                 <Link to="/categories">Categories</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -54,10 +78,10 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel>Categories</SidebarGroupLabel>
           <SidebarMenu>
-            {[1, 2, 3, 4, 5].map((c, i) => (
+            {categories.map((c, i) => (
               <SidebarMenuButton key={i}>
                 <div className="w-2 h-2 border rounded-full border-black" />
-                Bussiness
+                {c.name}
               </SidebarMenuButton>
             ))}
           </SidebarMenu>

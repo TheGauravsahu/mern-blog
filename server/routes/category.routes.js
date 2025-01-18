@@ -12,7 +12,8 @@ router.post(
   categoryController.createCategory
 );
 
-router.get("/", authMiddleware.authUser, categoryController.getAllCategories);
+router.get("/", categoryController.getAllCategories);
+
 router.get(
   "/:id",
   authMiddleware.authUser,
