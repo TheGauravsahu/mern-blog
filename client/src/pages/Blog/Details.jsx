@@ -60,8 +60,8 @@ const Details = () => {
             {/* <CommentCount props={{ blogid: blog._id }} />  */}
           </div>
         </div>
-        <div className="my-5 h-96 w-full overflow-hidden aspect-square object-cover">
-          <img src={blog.image} className="rounded object-cover" />
+        <div className="my-5 h-[30rem] w-full overflow-hidden object-center">
+          <img src={blog.image} className="rounded object-center h-full w-full object-cover" />
         </div>
         {/* <div
                   dangerouslySetInnerHTML={{
