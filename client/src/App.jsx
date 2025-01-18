@@ -10,6 +10,7 @@ import Create from "./pages/Category/Create";
 import List from "./pages/Category/List";
 import Update from "./pages/Category/Update";
 import Details from "./pages/Blog/Details";
+import UserProtected from "./components/user-protected";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
           <Route index element={<Index />} />
           <Route path="/profile" element={<Profile />} />
 
-          <Route>
+          <Route element={<UserProtected />}>
             <Route path="/blog/:slug" element={<Details />} />
           </Route>
 
