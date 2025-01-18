@@ -1,3 +1,4 @@
+import LoadingSpinner from "@/components/loading";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "@/config/axios";
 import { showToast } from "@/config/toastify";
@@ -27,7 +28,7 @@ const Details = () => {
     };
 
     getBlogDetail();
-  });
+  }, []);
 
   if (!blog) return <div>Blog not found.</div>;
 
@@ -37,36 +38,36 @@ const Details = () => {
     day: "numeric",
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="md:flex-nowrap flex-wrap flex justify-between gap-20">
+    <div className="md:flex-nowrap flex-wrap flex justify-between gap-20 h-full w-full">
       <div className="border rounded md:w-[70%] w-full p-5">
         <h1 className="text-2xl font-bold mb-5">{blog.title}</h1>
         <div className="flex justify-between items-center">
           <div className="flex justify-between items-center gap-5">
             <Avatar>
-              {/* <AvatarImage src={blog.author.avatar} /> */}
-              {/* <AvatarFallback>{blog.author.name?.charAt(0)}</AvatarFallback> */}
+              <AvatarImage className="object-cover" src={blog.author.avatar} />
+              <AvatarFallback>{blog.author.name?.charAt(0)}</AvatarFallback>
             </Avatar>
             <div>
-              {/* <p className="font-bold">{blog.author.name}</p> */}
-              {/* <p>Date: {formattedDate}</p> */}
+              <p className="font-bold">{blog.author.name}</p>
+              <p className="text-xs text-gray-400">Date: {formattedDate}</p>
             </div>
           </div>
           <div className="flex justify-between items-center gap-5">
             {/* <LikeCount props={{ blogid: blog._id }} /> */}
-            {/* <CommentCount props={{ blogid: blog._id }} /> */}
+            {/* <CommentCount props={{ blogid: blog._id }} />  */}
           </div>
         </div>
-        <div className="my-5">
-          {/* <img src={blog.image} className="rounded" /> */}
+        <div className="my-5 h-96 w-full overflow-hidden aspect-square object-cover">
+          <img src={blog.image} className="rounded object-cover" />
         </div>
         {/* <div
-          dangerouslySetInnerHTML={{
-            __html: decode(blog.content) || "",
-          }}
-        ></div> */}
+                  dangerouslySetInnerHTML={{
+                  __html: decode(blog.content) || "",
+                  }}
+                ></div> */}
 
         <div className="border-t mt-5 pt-5">
           {/* <Comment props={{ blogid: blog._id }} /> */}

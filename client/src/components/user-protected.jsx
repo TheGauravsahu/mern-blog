@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 const UserProtected = () => {
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
-  if(user && user.isLoggedIn){
-    return <Outlet />
+  if (user && user.isLoggedIn) {
+    return <Outlet />;
   } else {
-    <Navigate to={"/login"} />
+    return <Navigate to={"/signin"} />;
   }
 };
 
