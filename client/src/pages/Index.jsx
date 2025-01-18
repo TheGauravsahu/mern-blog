@@ -32,6 +32,13 @@ const Index = () => {
 
   if (loading) return <AnimatedLoadingSkeletonList />;
 
+  if (blogs.length < 1)
+    return (
+      <div className="h-screen items-center justify-center">
+        <p>No blogs found.</p>
+      </div>
+    );
+
   return (
     <div className="flex items-center flex-wrap gap-6 px-8 pb-4 justify-center md:justify-normal">
       {blogs.map((b) => (
