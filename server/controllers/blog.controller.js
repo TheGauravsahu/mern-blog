@@ -91,7 +91,9 @@ export const listCategoryBlogs = async (req, res, next) => {
     const blogs = await blogModel
       .find({ category: categoryData._id })
       .populate("author", "name")
-      .populate('category', 'name slug').lean().exec();
+      .populate("category", "name slug")
+      .lean()
+      .exec();
 
     return res
       .status(200)

@@ -173,7 +173,7 @@ http://localhost:4000/api
 
 #### 2. Get All Categories
 
-**Endpoint:** `/categories/all`  
+**Endpoint:** `/categories`  
 **Method:** `GET`  
 **Description:** Get all categories.
 
@@ -191,10 +191,28 @@ http://localhost:4000/api
 }
 ```
 
-#### 3. Update Category
+#### 3. Get Category Details
+
+**Endpoint:** `/categories/:id`  
+**Method:** `GET`  
+**Description:** Get details of a specific category.
+
+**Response:**
+
+```json
+{
+  "message": "Category fetched successfully.",
+  "category": {
+    "_id": "category_id_here",
+    "name": "Technology"
+  }
+}
+```
+
+#### 4. Update Category
 
 **Endpoint:** `/categories/update/:id`  
-**Method:** `PATCH`  
+**Method:** `PUT`  
 **Description:** Update an existing category.
 
 **Request Body:**
@@ -217,7 +235,7 @@ http://localhost:4000/api
 }
 ```
 
-#### 4. Delete Category
+#### 5. Delete Category
 
 **Endpoint:** `/categories/delete/:id`  
 **Method:** `DELETE`  
