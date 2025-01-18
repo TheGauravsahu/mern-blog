@@ -78,12 +78,23 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel>Categories</SidebarGroupLabel>
           <SidebarMenu>
-            {categories.map((c, i) => (
-              <SidebarMenuButton key={i}>
-                <div className="w-2 h-2 border rounded-full border-black" />
-                {c.name}
-              </SidebarMenuButton>
-            ))}
+            {loading ? (
+              <div className="space-y-2">
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-4 bg-gray-200 rounded animate-pulse"
+                  />
+                ))}
+              </div>
+            ) : (
+              categories.map((c, i) => (
+                <SidebarMenuButton key={i}>
+                  <div className="w-2 h-2 border rounded-full border-black" />
+                  {c.name}
+                </SidebarMenuButton>
+              ))
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
