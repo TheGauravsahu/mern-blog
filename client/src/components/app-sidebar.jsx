@@ -91,7 +91,7 @@ const AppSidebar = () => {
               categories.map((c, i) => (
                 <SidebarMenuButton key={i}>
                   <div className="w-2 h-2 border rounded-full border-black" />
-                  {c.name}
+                  <Link to={"/blogs/" + c.slug}>{c.name}</Link>
                 </SidebarMenuButton>
               ))
             )}

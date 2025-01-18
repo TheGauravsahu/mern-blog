@@ -19,6 +19,8 @@ router.post(
 
 router.get("/", blogController.listAllBlogs);
 
+router.get("/:category/all", blogController.listCategoryBlogs);
+
 router.get("/me", authMiddleware.authUser, blogController.listUserBlogs);
 
 router.get("/:slug", authMiddleware.authUser, blogController.getBlogDetails);

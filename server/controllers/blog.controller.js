@@ -3,6 +3,7 @@ import blogModel from "../models/blog.model.js";
 import * as blogService from "../services/blog.service.js";
 import { validationResult } from "express-validator";
 import { uploadFile } from "../config/pinata.config.js";
+import categoryModel from "../models/category.model.js";
 
 export const createBlog = async (req, res, next) => {
   const errors = validationResult(req);
@@ -69,6 +70,28 @@ export const listUserBlogs = async (req, res, next) => {
     const blogs = await blogModel
       .find({ author: _id })
       .populate("author", "name");
+
+    return res
+      .status(200)
+      .json({ message: "Blogs fetched successfully.", blogs });
+  } catch (error) {
+    return next(errorHandler(500, error.message));
+  }
+};
+
+export const listCategoryBlogs = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+
+    const categoryData = await categoryModel.findOne({ slug: category });
+    if (!categoryData) {
+      return next(404, "Category not found.");
+    }
+
+    const blogs = await blogModel
+      .find({ category: categoryData._id })
+      .populate("author", "name")
+      .populate('category', 'name slug').lean().exec();
 
     return res
       .status(200)

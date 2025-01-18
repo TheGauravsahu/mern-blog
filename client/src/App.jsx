@@ -11,6 +11,7 @@ import List from "./pages/Category/List";
 import Update from "./pages/Category/Update";
 import Details from "./pages/Blog/Details";
 import UserProtected from "./components/user-protected";
+import ListByCategory from "./pages/Blog/ListByCategory";
 
 const App = () => {
   return (
@@ -18,10 +19,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Index />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/blogs/:category" element={<ListByCategory />} />
+          <Route path="/blog/:slug" element={<Details />} />
 
           <Route element={<UserProtected />}>
-            <Route path="/blog/:slug" element={<Details />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
 
           <Route>
