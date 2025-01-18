@@ -2,6 +2,7 @@ import axios from "@/config/axios";
 import Card from "../components/card";
 import { showToast } from "@/config/toastify";
 import { useState, useEffect } from "react";
+import AnimatedLoadingSkeletonList from "@/components/ui/animated-loading-skeleton";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,7 @@ const Index = () => {
     fetchBlogs();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <AnimatedLoadingSkeletonList />;
 
   return (
     <div className="flex items-center flex-wrap gap-6 px-8 pb-4 justify-center md:justify-normal">
