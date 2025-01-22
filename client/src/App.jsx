@@ -12,6 +12,8 @@ import Update from "./pages/Category/Update";
 import Details from "./pages/Blog/Details";
 import UserProtected from "./components/user-protected";
 import ListByCategory from "./pages/Blog/ListByCategory";
+import ListBlogs from "./pages/Blog/List";
+import CreateBlog from "./pages/Blog/Create";
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
 
           <Route element={<UserProtected />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/blogs" element={<ListBlogs />} />
+            <Route path="/blogs/add" element={<CreateBlog />} />
           </Route>
 
           <Route>

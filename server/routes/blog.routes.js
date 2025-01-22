@@ -23,7 +23,7 @@ router.get("/:category/all", blogController.listCategoryBlogs);
 
 router.get("/me", authMiddleware.authUser, blogController.listUserBlogs);
 
-router.get("/:slug", authMiddleware.authUser, blogController.getBlogDetails);
+router.get("/:slug", blogController.getBlogDetails);
 
 router.patch("/:slug", authMiddleware.authUser, blogController.updateBlog);
 

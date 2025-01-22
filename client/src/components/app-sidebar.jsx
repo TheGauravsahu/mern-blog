@@ -62,7 +62,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton>
                 <ScrollText />
-                <Link to="">Blogs</Link>
+                <Link to="/blogs">Blogs</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
