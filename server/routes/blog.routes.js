@@ -25,7 +25,12 @@ router.get("/me", authMiddleware.authUser, blogController.listUserBlogs);
 
 router.get("/:slug", blogController.getBlogDetails);
 
-router.patch("/:slug", authMiddleware.authUser, blogController.updateBlog);
+router.put(
+  "/:slug",
+  upload.single("image"),
+  authMiddleware.authUser,
+  blogController.updateBlog
+);
 
 router.delete("/:slug", authMiddleware.authUser, blogController.deleteBlog);
 

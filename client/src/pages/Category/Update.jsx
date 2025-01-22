@@ -57,6 +57,8 @@ const Update = () => {
     getCategoryDetails();
   }, []);
 
+ 
+
   return (
     <Card className="max-w-screen-md mx-auto">
       <CardContent>

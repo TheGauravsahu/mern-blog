@@ -270,7 +270,7 @@ export default function Editor({ props }) {
             "resizeImage",
           ],
         },
-        initialData: props?.initialData || "",
+        initialData: props.initialData || "",
         licenseKey: LICENSE_KEY,
         link: {
           addTargetToExternalLinks: true,
@@ -305,6 +305,7 @@ export default function Editor({ props }) {
       },
     };
   }, [isLayoutReady]);
+
 
   return (
     <div className="main-container">

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -73,23 +72,32 @@ const ListBlogs = () => {
             </TableHeader>
             <TableBody>
               {blogs && blogs.length > 0 ? (
-                blogs.map((c) => (
-                  <TableRow key={c._id}>
-                    <TableCell className="font-medium">{c.name}</TableCell>
-                    <TableCell className="font-medium">{c.slug}</TableCell>
-                    <TableCell className="flex  gap-2">
+                blogs.map((b) => (
+                  <TableRow key={b._id}>
+                    <TableCell className="font-medium">
+                      <div className="w-12 h-12 overflow-hidden">
+                        <Link to={"/blog/" + b.slug}>
+                          <img
+                            src={b.image}
+                            className="object-cover w-full h-full"
+                          />
+                        </Link>
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium">{b.slug}</TableCell>
+                    <TableCell className="flex gap-2">
                       <Button
                         asChild
                         variant="outline"
                         className="hover:bg-green-500 hover:text-white"
                       >
-                        <Link to={`/blog/update/${c._id}`}>
+                        <Link to={`/blogs/update/${b.slug}`}>
                           <Pencil />
                         </Link>
                       </Button>
                       <Button
                         type="button"
-                        onClick={() => deleteblog(c._id)}
+                        onClick={() => deleteblog(b._id)}
                         variant="outline"
                         className="hover:bg-green-500 hover:text-white"
                       >

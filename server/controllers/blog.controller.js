@@ -4,6 +4,7 @@ import * as blogService from "../services/blog.service.js";
 import { validationResult } from "express-validator";
 import { uploadFile } from "../config/pinata.config.js";
 import categoryModel from "../models/category.model.js";
+import { encode } from "entities";
 
 export const createBlog = async (req, res, next) => {
   const errors = validationResult(req);
@@ -28,7 +29,7 @@ export const createBlog = async (req, res, next) => {
     const imageUrl = `https://${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
 
     const blog = await blogService.create({
-      title,
+      title: encode(title),
       content,
       image: imageUrl,
       category,
@@ -49,7 +50,8 @@ export const getBlogDetails = async (req, res, next) => {
 
     const blog = await blogModel
       .findOne({ slug })
-      .populate("author", "name avatar");
+      .populate("author", "name avatar")
+      .populate("category", "name");
 
     if (!blog) {
       return next(errorHandler(404, "Blog not found."));
@@ -118,7 +120,20 @@ export const listAllBlogs = async (req, res, next) => {
 export const updateBlog = async (req, res, next) => {
   try {
     const { slug } = req.params;
-    const { title, content, image, category } = req.body;
+    const { title, content, category } = req.body;
+    const image = req.file;
+
+    // Upload file to Pinata
+    let pinataResponse;
+    if (image) {
+      pinataResponse = await uploadFile(
+        image.buffer,
+        image.originalname,
+        image.mimetype
+      );
+    }
+
+    const imageUrl = `https://${process.env.GATEWAY_URL}/ipfs/${pinataResponse.IpfsHash}`;
 
     const blog = await blogModel.findOne({ slug });
 
@@ -131,7 +146,7 @@ export const updateBlog = async (req, res, next) => {
       {
         title,
         content,
-        image,
+        image: imageUrl,
         category,
       },
       {

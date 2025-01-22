@@ -14,6 +14,7 @@ import UserProtected from "./components/user-protected";
 import ListByCategory from "./pages/Blog/ListByCategory";
 import ListBlogs from "./pages/Blog/List";
 import CreateBlog from "./pages/Blog/Create";
+import UpdateBlog from "./pages/Blog/Update";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/blogs" element={<ListBlogs />} />
             <Route path="/blogs/add" element={<CreateBlog />} />
+            <Route path="/blogs/update/:slug" element={<UpdateBlog />} />
           </Route>
 
           <Route>
