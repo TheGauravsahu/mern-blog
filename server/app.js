@@ -27,7 +27,7 @@ const apiLimiter = rateLimit({
   },
 });
 
-// app.use("/api", apiLimiter);
+app.use("/api", apiLimiter);
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
