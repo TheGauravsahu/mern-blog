@@ -74,7 +74,7 @@ const Navbar = () => {
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="*:cursor-pointer mr-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+              <DropdownMenuContent className="*:cursor-pointer mr-4 bg-background text-gray-900 dark:text-white">
                 <DropdownMenuLabel className="text-gray-900 dark:text-white">
                   {user.user.name}
                 </DropdownMenuLabel>
@@ -85,7 +85,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">
                   <Plus className="mr-2 text-gray-700 dark:text-gray-300" />
-                  <Link to="/create">Create Blog</Link>
+                  <Link to="/blogs/add">Create Blog</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => handleLogout()}

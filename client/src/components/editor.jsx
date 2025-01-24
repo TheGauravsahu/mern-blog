@@ -306,7 +306,6 @@ export default function Editor({ props }) {
     };
   }, [isLayoutReady]);
 
-
   return (
     <div className="main-container">
       <div
