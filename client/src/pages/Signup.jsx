@@ -62,7 +62,7 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center bg-baground">
       <Card className="w-[400px] p-5">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground">
             Create Your Account
           </h2>
         </div>

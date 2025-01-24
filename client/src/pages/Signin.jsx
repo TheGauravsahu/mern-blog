@@ -59,7 +59,7 @@ const SignIn = () => {
               MERN blogs
             </Link>
           </div>
-          <h2 className="text-center text-3xl font-semibold text-gray-900">
+          <h2 className="text-center text-3xl font-semibold text-foreground">
             Sign in to your account
           </h2>
         </div>
