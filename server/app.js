@@ -40,7 +40,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("Blog api,");
+  res.send("Blog api");
 });
 
 app.use("/api/users", userRoutes);
