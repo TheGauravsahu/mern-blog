@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "@/config/toastify";
 import axios from "@/config/axios";
 import { removeUser } from "@/store/user.slice";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   const { toggleSidebar } = useSidebar();
@@ -30,7 +31,7 @@ const Navbar = () => {
 
       dispatch(removeUser());
       localStorage.removeItem("token");
-      showToast("sucess", data.message);
+      showToast("success", data.message);
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Failed to logout";
       showToast("error", errorMessage);
@@ -38,12 +39,18 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full p-4  border-b border-gray-200 fixed top-0 left-0 right-0 z-20 bg-white flex items-center justify-between gap-4 px-8">
+    <div className="w-full p-4 border-b border-gray-200 dark:border-gray-700 fixed top-0 left-0 right-0 z-20 bg-background text-foreground flex items-center justify-between gap-4 px-8">
       <div className="flex items-center gap-2">
-        <button onClick={toggleSidebar} className="md:hidden">
+        <button
+          onClick={toggleSidebar}
+          className="md:hidden text-gray-700 dark:text-gray-200"
+        >
           <AlignJustify />
         </button>
-        <Link to="/" className="text-xl font-semibold">
+        <Link
+          to="/"
+          className="text-xl font-semibold text-gray-900 dark:text-white"
+        >
           MERN Blogs
         </Link>
       </div>
@@ -52,40 +59,51 @@ const Navbar = () => {
         <SearchBar />
       </div>
 
-      <div>
-        {user.isLoggedIn ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage 
-                className="object-cover"
-                src={user.user.avatar} />
-                <AvatarFallback>{user.user.name?.charAt(0)}</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="*:cursor-pointer mr-4">
-              <DropdownMenuLabel>{user.user.name}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <User />
-                <Link to="/profile">Profile</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Plus />
-                <Link to="/create">Create Blog</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleLogout()}>
-                <LogOut />
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ) : (
-          <Button className="rounded-full">
-            <LogIn />
-            <Link to="/signin">Sign in</Link>
-          </Button>
-        )}
+      <div className="flex items-center gap-2">
+        <div>
+          {user.isLoggedIn ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage
+                    className="object-cover"
+                    src={user.user.avatar}
+                  />
+                  <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white">
+                    {user.user.name?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="*:cursor-pointer mr-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                <DropdownMenuLabel className="text-gray-900 dark:text-white">
+                  {user.user.name}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
+                <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <User className="mr-2 text-gray-700 dark:text-gray-300" />
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <Plus className="mr-2 text-gray-700 dark:text-gray-300" />
+                  <Link to="/create">Create Blog</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleLogout()}
+                  className="hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <LogOut className="mr-2 text-gray-700 dark:text-gray-300" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button className="rounded-full bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200">
+              <LogIn className="mr-2" />
+              <Link to="/signin">Sign in</Link>
+            </Button>
+          )}
+        </div>
+        <ModeToggle />
       </div>
     </div>
   );

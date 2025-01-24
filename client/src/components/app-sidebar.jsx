@@ -22,10 +22,8 @@ const AppSidebar = () => {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-
         const response = await axios.get("/categories");
         const data = response.data;
-
         setCategories(data.categories);
         setLoading(false);
       } catch (error) {
@@ -38,37 +36,37 @@ const AppSidebar = () => {
   }, []);
 
   return (
-    <Sidebar>
-      <SidebarHeader>
+    <Sidebar className="bg-background">
+      <SidebarHeader className="text-foreground">
         <h1 className="font-semibold">MERN Blogs</h1>
       </SidebarHeader>
-      <SidebarContent className="bg-white mt-8 py-2">
+      <SidebarContent className="bg-background mt-8 py-2">
         <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <House />
+              <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                <House className="mr-2" />
                 <Link to="/">Home</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <LayoutGrid />
+              <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                <LayoutGrid className="mr-2" />
                 <Link to="/categories">Categories</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <ScrollText />
+              <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                <ScrollText className="mr-2" />
                 <Link to="/blogs">Blogs</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <SidebarMenuButton>
-                <MessageCircle />
+              <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                <MessageCircle className="mr-2" />
                 <Link to="">Comments</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -76,21 +74,23 @@ const AppSidebar = () => {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Categories</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-muted-foreground">
+            Categories
+          </SidebarGroupLabel>
           <SidebarMenu>
             {loading ? (
               <div className="space-y-2">
                 {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="h-4 bg-gray-200 rounded animate-pulse"
-                  />
+                  <div key={i} className="h-4 bg-muted rounded animate-pulse" />
                 ))}
               </div>
             ) : (
               categories.map((c, i) => (
-                <SidebarMenuButton key={i}>
-                  <div className="w-2 h-2 border rounded-full border-black" />
+                <SidebarMenuButton
+                  key={i}
+                  className="text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                >
+                  <div className="w-2 h-2 border rounded-full border-foreground" />
                   <Link to={"/blogs/" + c.slug}>{c.name}</Link>
                 </SidebarMenuButton>
               ))
@@ -98,7 +98,7 @@ const AppSidebar = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter className="bg-background" />
     </Sidebar>
   );
 };

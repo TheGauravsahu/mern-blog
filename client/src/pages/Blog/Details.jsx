@@ -4,6 +4,7 @@ import axios from "@/config/axios";
 import { showToast } from "@/config/toastify";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { decode } from "entities";
 
 const Details = () => {
   const { slug } = useParams();
@@ -61,13 +62,16 @@ const Details = () => {
           </div>
         </div>
         <div className="my-5 h-[30rem] w-full overflow-hidden object-center">
-          <img src={blog.image} className="rounded object-center h-full w-full object-cover" />
+          <img
+            src={blog.image}
+            className="rounded object-center h-full w-full object-cover"
+          />
         </div>
-        {/* <div
-                  dangerouslySetInnerHTML={{
-                  __html: decode(blog.content) || "",
-                  }}
-                ></div> */}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: decode(blog.content) || "",
+          }}
+        ></div>
 
         <div className="border-t mt-5 pt-5">
           {/* <Comment props={{ blogid: blog._id }} /> */}

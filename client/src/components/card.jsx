@@ -11,7 +11,7 @@ const Card = ({ blog }) => {
   return (
     <div
       id={blog._id}
-      className="bg-white rounded-lg shadow-md overflow-hidden w-80 border p-4 cursor-pointer hover:shadow-lg hover:scale-95 transition-all ease-in-out"
+      className="bg-card text-card-foreground rounded-lg shadow-md overflow-hidden w-80 border border-border p-4 cursor-pointer hover:shadow-lg hover:scale-95 transition-all ease-in-out"
       style={{ transition: "transform 0.2s ease-in-out" }}
     >
       <div className="flex items-center">
@@ -42,7 +42,7 @@ const Card = ({ blog }) => {
         </Link>
       )}
       <div>
-        <p className="text-gray-500 text-sm flex items-center mb-2 gap-1">
+        <p className="text-muted-foreground text-sm flex items-center mb-2 gap-1">
           <CalendarDays size={14} />
           {formattedDate}
         </p>

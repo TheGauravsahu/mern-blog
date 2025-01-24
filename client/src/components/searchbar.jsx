@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 const SearchBar = () => {
   return (
     <form>
-      <Input placeholder="Search here..." className="rounded-full bg-gray-50 w-full" />
+      <Input placeholder="Search here..." className="rounded-full bg-background w-full" />
     </form>
   );
 };
