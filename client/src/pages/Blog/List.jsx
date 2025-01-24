@@ -13,6 +13,7 @@ import {
 import { Pencil, Trash } from "lucide-react";
 import { showToast } from "@/config/toastify";
 import axios from "@/config/axios";
+import LoadingSpinner from "@/components/loading";
 
 const ListBlogs = () => {
   const [loading, setLoading] = useState(false);
@@ -51,7 +52,7 @@ const ListBlogs = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div>
