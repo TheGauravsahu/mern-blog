@@ -15,6 +15,7 @@ import ListByCategory from "./pages/Blog/ListByCategory";
 import ListBlogs from "./pages/Blog/List";
 import CreateBlog from "./pages/Blog/Create";
 import UpdateBlog from "./pages/Blog/Update";
+import AdminProtected from "./components/admin-protected";
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
             <Route path="/blogs/update/:slug" element={<UpdateBlog />} />
           </Route>
 
-          <Route>
+          <Route element={<AdminProtected />}>
             <Route path="/categories" element={<List />} />
             <Route path="/category/add" element={<Create />} />
             <Route path="/category/update/:id" element={<Update />} />

@@ -20,7 +20,7 @@ import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
   const { toggleSidebar } = useSidebar();
-  const user = useSelector((state) => state.user).user;
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 

@@ -13,10 +13,12 @@ import { House, LayoutGrid, MessageCircle, ScrollText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "@/config/axios";
+import { useSelector } from "react-redux";
 
 const AppSidebar = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -50,13 +52,14 @@ const AppSidebar = () => {
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            <SidebarMenuItem>
-              <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
-                <LayoutGrid className="mr-2" />
-                <Link to="/categories">Categories</Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
+            {user.user.role === "admin" && (
+              <SidebarMenuItem>
+                <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                  <LayoutGrid className="mr-2" />
+                  <Link to="/categories">Categories</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
             <SidebarMenuItem>
               <SidebarMenuButton className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
                 <ScrollText className="mr-2" />

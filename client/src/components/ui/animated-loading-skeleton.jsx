@@ -3,7 +3,7 @@ import React from "react";
 
 const AnimatedLoadingSkeleton = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden w-80 border p-4">
+    <div className="bg-background rounded-lg shadow-md overflow-hidden w-80 border p-4">
       <div className="flex items-center mb-4">
         <motion.div
           className="w-10 h-10 rounded-full bg-gray-300 mr-4"
