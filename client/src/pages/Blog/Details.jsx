@@ -31,15 +31,16 @@ const Details = () => {
     getBlogDetail();
   }, []);
 
-  if (!blog) return <div>Blog not found.</div>;
-
+  
   const formattedDate = new Date(blog.createdAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
-
+  
   if (loading) return <LoadingSpinner />;
+  
+  if (!blog) return <div>Blog not found.</div>;
 
   return (
     <div className="md:flex-nowrap flex-wrap flex justify-between gap-20 h-full w-full">
