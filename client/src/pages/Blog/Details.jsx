@@ -10,7 +10,7 @@ const Details = () => {
   const { slug } = useParams();
 
   const [loading, setLoading] = useState(false);
-  const [blog, setBlog] = useState();
+  const [blog, setBlog] = useState(null);
 
   useEffect(() => {
     const getBlogDetail = async () => {
@@ -30,17 +30,13 @@ const Details = () => {
 
     getBlogDetail();
   }, []);
-
-  
-  const formattedDate = new Date(blog.createdAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
   
   if (loading) return <LoadingSpinner />;
-  
-  if (!blog) return <div>Blog not found.</div>;
+
+  if (!blog) {
+    return <div>Blog not found.</div>;
+  }
+
 
   return (
     <div className="md:flex-nowrap flex-wrap flex justify-between gap-20 h-full w-full">
@@ -54,7 +50,14 @@ const Details = () => {
             </Avatar>
             <div>
               <p className="font-bold">{blog.author.name}</p>
-              <p className="text-xs text-gray-400">Date: {formattedDate}</p>
+              <p className="text-xs text-gray-400">
+                Date:{" "}
+                {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
             </div>
           </div>
           <div className="flex justify-between items-center gap-5">
